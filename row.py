@@ -25,8 +25,12 @@ class Row:
         # update pivot pos
         self.update_pivot_pos()
         # divide each entry by the pivot value
-        if self.pivot_pos:
-            self.DATA = [0 if x == 0 else x/self.DATA[self.pivot_pos] for x in self.DATA]
+        if not self.pivot_pos == None:
+            piv_value = self.DATA[self.pivot_pos] # get value at pivot position
+            # self.DATA = [0 if x == 0 else x/self.DATA[self.pivot_pos] for x in self.DATA]
+            self.DATA = [0 if x == 0 else x/piv_value for x in self.DATA]
+
+        return
 
     def print_row(self):
         for v in self.DATA:
