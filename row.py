@@ -6,7 +6,8 @@ class Row:
         self.update_pivot_pos()
 
     def update_pivot_pos(self):
-        """ update and return pivot position """
+        """ Update and return pivot position """
+
         # find the first nonzero value in row
         i = 0
         while i < len(self.DATA) and self.DATA[i] == 0:
@@ -22,6 +23,12 @@ class Row:
         return self.pivot_pos
 
     def print_row(self):
+        """
+        Print a neatly formatted display of the row.
+        Note: values will be rounded if necessary to keep even columns
+        each value is formatted to be 5 characters long, including decimal and negative sign
+        """
+
         for v in self.DATA:
             if (v < 0 and v > -10) or (v >= 10):
                 print("{:0.2f}".format(v), end="   ")
@@ -29,8 +36,10 @@ class Row:
                 print("{:0.1f}".format(v), end="   ")
             elif v >= 0 and v < 10:
                 print("{:0.3f}".format(v), end="   ")
+        # print blank line
         print()
 
+    
     #* GETTERS
     def get_pivot_pos(self):
         return self.pivot_pos
