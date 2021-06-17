@@ -1,3 +1,4 @@
+from fractions import Fraction
 from row import Row
 
 class CoefficientMatrix:
@@ -43,7 +44,8 @@ class CoefficientMatrix:
             #todo reduce current_row so leading coefficient is 1
 
             # zeros above
-            self._zeros_above(current_row)
+            # self._zeros_above(current_row)
+            self._zeros_above_exact(current_row)
             # decrement current_row
             current_row -= 1
 
@@ -61,29 +63,28 @@ class CoefficientMatrix:
         # loop through the rows ABOVE row_num
         for i in range(row_num):
             # calculate the appropriate scalar
-            current_scalar = -1 * self.ROWS[i].get_value(pivot_pos) / pivot_value
+            # current_scalar = -1 * self.ROWS[i].get_value(pivot_pos) / pivot_value
+            current_scalar = Fraction(-1 * self.ROWS[i].get_value(pivot_pos), pivot_value)
             # scale and replace scalar, row_num, i
             self._scale_and_replace(current_scalar, row_num, i)
 
         return
 
     def _zeros_below(self, row_num):
-        """ Perform row ops to get zeros below the leading coefficient of the given row number """
-
-        #todo make sure row_num is valid
+        """ hopefully this will replace _zeros_below. still in progress right now """
 
         # get the relevant pivot position and pivot value
         pivot_pos = self.ROWS[row_num].get_pivot_pos()
         pivot_value = self.ROWS[row_num].get_value(pivot_pos)
-        
-        # loop through the rows BELOW row_num
+
+        # loop through the rows below row_num
         for i in range(row_num+1, self.NUM_ROWS):
-            # calculate the appropriate scalar
-            current_scalar = -1 * self.ROWS[i].get_value(pivot_pos) / pivot_value
+            # calculate the appropriate scalar and store as a Fraction object
+            current_scalar = Fraction(-1 * self.ROWS[i].get_value(pivot_pos), pivot_value)
             # scale and replace scalar, row_num, i
             self._scale_and_replace(current_scalar, row_num, i)
-            
-        return True #todo I dont think this has to return True anymore, I think it can just return
+
+        return
 
     def _scale_and_replace(self, scalar, row_a, row_b):
         """ Add a scalar multiple of row_a to row_b. row_a does not change, row_b does change. """
