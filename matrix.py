@@ -7,19 +7,30 @@ class CoefficientMatrix:
         self.NUM_COLS = len(data[0]) # assuming all rows same length (todo exception handling)
 
     def ref(self):
+        """ Perform row ops to convert matrix to row-echelon form """
+
+        # sort rows by pivot position
         self._sort_rows()
 
+        # loop through rows until last row is reached or next row does not have valid pivot position
         current_row = 0
         while current_row < self.NUM_ROWS - 1 and self.ROWS[current_row].update_pivot_pos() < self.NUM_COLS:
+            # call zeros below on current row
             self._zeros_below(current_row)
+            # sort rows by pivot position
             self._sort_rows()
+            # increment current row
             current_row += 1
+
         return
 
     def _zeros_below(self, row_num):
+        """ Perform row ops to get zeros below the leading coefficient of the given row number """
+
+        #todo make sure row_num is valid
+
         # get the relevant pivot position and pivot value
         pivot_pos = self.ROWS[row_num].get_pivot_pos()
-
         pivot_value = self.ROWS[row_num].get_value(pivot_pos)
         
         # loop through the rows BELOW row_num
@@ -32,10 +43,13 @@ class CoefficientMatrix:
         return True
 
     def _scale_and_replace(self, scalar, row_a, row_b):
-        """ (scalar)(row_a) + row_b --> row_b """
+        """ Add a scalar multiple of row_a to row_b. row_a does not change, row_b does change. """
+
+        # loop through each column
         for i in range(self.NUM_COLS):
-            # self.ROWS[row_b][i] = scalar * self.ROWS[row_a][i] + self.ROWS[row_b][i]
+            # calculate new value of the current column of row_b
             v = scalar * self.ROWS[row_a].get_value(i) + self.ROWS[row_b].get_value(i)
+            # set new value
             self.ROWS[row_b].set_value(i, v)
 
         return
@@ -64,6 +78,8 @@ class CoefficientMatrix:
         return
 
     def print_matrix(self):
+        """ print a neatly formatted version of the matrix """
+        
         for r in self.ROWS:
             r.print_row()
         print()
