@@ -1,8 +1,9 @@
 class Row:
     def __init__(self, data):
         self.DATA = data
-        self.pivot_pos = None
-        self.all_zero = False
+        self.all_zero = False # default value, updated if necessary when pivot pos is updated
+        self.pivot_pos = len(self.DATA) # default value, updated immediately
+        self.update_pivot_pos()
 
     def update_pivot_pos(self):
         """ update and return pivot position """
@@ -15,22 +16,10 @@ class Row:
         if i < len(self.DATA):
             self.pivot_pos = i
         else:
-            self.pivot_pos = None
+            self.pivot_pos = len(self.DATA)
             self.all_zero = True
 
         return self.pivot_pos
-
-    def reduce(self):
-        """ scale row so the leading coefficient is 1 """
-        # update pivot pos
-        self.update_pivot_pos()
-        # divide each entry by the pivot value
-        if not self.pivot_pos == None:
-            piv_value = self.DATA[self.pivot_pos] # get value at pivot position
-            # self.DATA = [0 if x == 0 else x/self.DATA[self.pivot_pos] for x in self.DATA]
-            self.DATA = [0 if x == 0 else x/piv_value for x in self.DATA]
-
-        return
 
     def print_row(self):
         for v in self.DATA:
@@ -42,7 +31,6 @@ class Row:
                 print("{:0.3f}".format(v), end="   ")
         print()
 
-    
     #* GETTERS
     def get_pivot_pos(self):
         return self.pivot_pos
