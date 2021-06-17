@@ -22,22 +22,30 @@ class Row:
 
         return self.pivot_pos
 
-    def print_row(self):
+    def print_row(self, formatted=True):
         """
         Print a neatly formatted display of the row.
         Note: values will be rounded if necessary to keep even columns
         each value is formatted to be 5 characters long, including decimal and negative sign
+        If formatted == False, the exact values will be printed
         """
 
-        for v in self.DATA:
-            if (v < 0 and v > -10) or (v >= 10):
-                print("{:0.2f}".format(v), end="   ")
-            elif v <= -10:
-                print("{:0.1f}".format(v), end="   ")
-            elif v >= 0 and v < 10:
-                print("{:0.3f}".format(v), end="   ")
+        if formatted:
+            for v in self.DATA:
+                if (v < 0 and v > -10) or (v >= 10):
+                    print("{:0.2f}".format(v), end="   ")
+                elif v <= -10:
+                    print("{:0.1f}".format(v), end="   ")
+                elif v >= 0 and v < 10:
+                    print("{:0.3f}".format(v), end="   ")
+        else:
+            for v in self.DATA:
+                print("{}".format(v), end="   ")
+
         # print blank line
         print()
+
+        return
 
     
     #* GETTERS
