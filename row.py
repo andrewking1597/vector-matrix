@@ -1,3 +1,5 @@
+from fractions import Fraction
+
 class Row:
     def __init__(self, data):
         self.DATA = data
@@ -22,31 +24,42 @@ class Row:
 
         return self.pivot_pos
 
-    def print_row(self, formatted=True):
-        """
-        Print a neatly formatted display of the row.
-        Note: values will be rounded if necessary to keep even columns
-        each value is formatted to be 5 characters long, including decimal and negative sign
-        If formatted == False, the exact values will be printed
-        """
+    def reduce(self):
+        """ Reduce values so the leading coefficient is 1 """
 
-        if formatted:
-            for v in self.DATA:
-                if (v < 0 and v > -10) or (v >= 10):
-                    print("{:0.2f}".format(v), end="   ")
-                elif v <= -10:
-                    print("{:0.1f}".format(v), end="   ")
-                elif v >= 0 and v < 10:
-                    print("{:0.3f}".format(v), end="   ")
-        else:
-            for v in self.DATA:
-                print("{}".format(v), end="   ")
+        # if all zeros, there is no leading coefficient so simply return
+        if self.all_zero:
+            return
 
-        # print blank line
-        print()
+        # get value of leading coefficient
+        v = self.DATA[self.pivot_pos]
+
+        # loop through self.DATA and put each entry over the denominator v
+        self.DATA = [Fraction(x, v) for x in self.DATA]
 
         return
 
+    def print_row(self, value_length, spacing=4):
+        """ print row according to the given value_length and spacing arguments """
+
+        # loop through the list of values
+        for v in self.DATA:
+            # print v with no linebreak or spaces
+            print(v, end='')
+            # calculate num spaces for this column break
+            num_spaces = spacing + value_length - len(str(v))
+            # print spaces with no linebreaks
+            for _ in range(num_spaces):
+                print(" ", end='')
+
+        # line break for end of row
+        print()
+
+    def max_value_length(self):
+        value_lengths = [len(str(d)) for d in self.DATA]
+        return max(value_lengths)
+
+    
     #* GETTERS
     def get_pivot_pos(self):
         return self.pivot_pos

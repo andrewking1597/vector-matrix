@@ -1,5 +1,4 @@
-from fractions import Fraction
-from row import Row
+from row import Row, Fraction
 
 class CoefficientMatrix:
     def __init__(self, data):
@@ -42,14 +41,14 @@ class CoefficientMatrix:
         # for current_row --> 1 (incl.): zeros above
         while current_row > 0:
             #todo reduce current_row so leading coefficient is 1
-
+            self.ROWS[current_row].reduce()
             # zeros above
-            # self._zeros_above(current_row)
-            self._zeros_above_exact(current_row)
+            self._zeros_above(current_row)
             # decrement current_row
             current_row -= 1
 
         #todo reduce row 0 so leading coefficient is 1
+        self.ROWS[0].reduce()
 
         return
 
@@ -121,12 +120,19 @@ class CoefficientMatrix:
 
         return
 
-    def print_matrix(self, formatted=True):
-        """ print a neatly formatted version of the matrix """
+    def print_matrix(self):
+        """ neatly format and print matrix so columns are even """
 
-        for r in self.ROWS:
-            r.print_row(formatted)
-        print()
+        # loop through rows to find the max value length
+        max_val_length = 0
+        for row in self.ROWS:
+            r_max_length = row.max_value_length()
+            if r_max_length > max_val_length:
+                max_val_length = r_max_length
+
+        # loop through rows to print
+        for row in self.ROWS:
+            row.print_row(max_val_length)
 
 
     #* GETTERS
