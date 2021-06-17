@@ -47,7 +47,6 @@ class Row:
 
         return
 
-    
     #* GETTERS
     def get_pivot_pos(self):
         return self.pivot_pos
