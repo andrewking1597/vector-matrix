@@ -22,6 +22,49 @@ class CoefficientMatrix:
             # increment current row
             current_row += 1
 
+        # update pivot position of last row
+        self.ROWS[self.NUM_ROWS-1].update_pivot_pos()
+
+        return
+
+    def rref(self):
+        """ Perform row ops to convert matrix to reduced row-echelon form """
+
+        # first get to row-echelon form
+        self.ref()
+
+        # starting with the last row, loop backward to find the last row that is not all zeros
+        current_row = self.NUM_ROWS - 1
+        while self.ROWS[current_row].get_all_zero():
+            current_row -= 1
+
+        # for current_row --> 1 (incl.): zeros above
+        while current_row > 0:
+            #todo reduce current_row so leading coefficient is 1
+
+            # zeros above
+            self._zeros_above(current_row)
+            # decrement current_row
+            current_row -= 1
+
+        #todo reduce row 0 so leading coefficient is 1
+
+        return
+
+    def _zeros_above(self, row_num):
+        """ Perform row ops to get zeros above the leading coefficient of the given row number """
+
+        # get the relevant pivot position and pivot value
+        pivot_pos = self.ROWS[row_num].get_pivot_pos()
+        pivot_value = self.ROWS[row_num].get_value(pivot_pos)
+
+        # loop through the rows ABOVE row_num
+        for i in range(row_num):
+            # calculate the appropriate scalar
+            current_scalar = -1 * self.ROWS[i].get_value(pivot_pos) / pivot_value
+            # scale and replace scalar, row_num, i
+            self._scale_and_replace(current_scalar, row_num, i)
+
         return
 
     def _zeros_below(self, row_num):
@@ -40,7 +83,7 @@ class CoefficientMatrix:
             # scale and replace scalar, row_num, i
             self._scale_and_replace(current_scalar, row_num, i)
             
-        return True
+        return True #todo I dont think this has to return True anymore, I think it can just return
 
     def _scale_and_replace(self, scalar, row_a, row_b):
         """ Add a scalar multiple of row_a to row_b. row_a does not change, row_b does change. """
@@ -77,11 +120,11 @@ class CoefficientMatrix:
 
         return
 
-    def print_matrix(self):
+    def print_matrix(self, formatted=True):
         """ print a neatly formatted version of the matrix """
-        
+
         for r in self.ROWS:
-            r.print_row()
+            r.print_row(formatted)
         print()
 
 
