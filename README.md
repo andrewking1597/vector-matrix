@@ -6,9 +6,22 @@ This package is a linear algebra tool for manipulating matrices.  However, in mo
 - Stores and displays values as fractions for maximum precision
 - Matrices are displayed neatly, with even rows and columns
 
+# Installation
+```
+pip install vectormatrixlib==0.0.5
+```
+
 # Example
 ```python
+from vectormatrixlib.matrix import *
+
 my_matrix = CoefficientMatrix([[0, 5, 4, 3], [1, 6, 6, 4], [0, 0, 1, 2], [4, 0, 0, 0]]
 my_matrix.rref()
 my_matrix.print_matrix()
 ```
+### Output
+1    0    -1
+
+0    1    2
+
+0    0    0
