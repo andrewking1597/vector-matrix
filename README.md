@@ -4,7 +4,7 @@ This package is a linear algebra tool for manipulating matrices.  However, in mo
 # Features
 - Row-echelon and reduced row-echelon form of coefficient matrices
 - Stores and displays values as fractions for maximum precision
-- Matrices are displayed neatly, with even rows and columns
+- Prints matrices neatly, displayed with even rows and columns
 
 # Installation
 ```
