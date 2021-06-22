@@ -44,6 +44,9 @@ class Row:
 
         # loop through the list of values
         for v in self.DATA:
+            # if v is non-neg: print a space directly before
+            if v >= 0:
+                print(' ', end='')
             # print v with no linebreak or spaces
             print(v, end='')
             # calculate num spaces for this column break
@@ -56,7 +59,8 @@ class Row:
         print()
 
     def max_value_length(self):
-        value_lengths = [len(str(d)) for d in self.DATA]
+        # value_lengths = [len(str(d)) for d in self.DATA]
+        value_lengths = [len(str(d)) if d < 0 else len(str(d))+1 for d in self.DATA]
         return max(value_lengths)
 
     
