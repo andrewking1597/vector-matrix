@@ -13,50 +13,52 @@ pip install vectormatrixlib==1.0.0
 
 # Simple Example
 ```python
-from vectormatrixlib.matrix import *
+from vectormatrixlib import matrix
 
-my_matrix = CoefficientMatrix([[0, 5, 4, 3], [1, 6, 6, 4], [0, 0, 1, 2], [4, 0, 0, 0]])
+my_matrix = matrix.CoefficientMatrix([[0, 5, 4, 3], [1, 6, 6, 4], [0, 0, 1, 2], [4, 0, 0, 0]])
 my_matrix.rref()
 my_matrix.print_matrix()
+
+"""
+Output:
+1   0   0   0
+0   1   0   0
+0   0   1   0
+0   0   0   1
+"""
 ```
-### Output
-1    0    -1
-
-0    1    2
-
-0    0    0
 
 # Example with Fractions
 Note: Floats are NOT supported at this time. Instead of using floats, enter non-integer values as fraction strings or Fraction objects
+
+### Using fraction strings
 ```python
-from vectormatrixlib.matrix import *
+from vectormatrixlib import matrix
 
-# Using fraction strings
-matrix1 = CoefficientMatrix([[2, 9, '7/10'], ['5/10', 1, 1]])
-matrix1.rref()
+my_matrix = matrix.CoefficientMatrix([[2, 9, '7/10'], ['5/10', 1, 1]])
+my_matrix.rref()
+my_matrix.print_matrix()
 
-# Using Fraction objects
-matrix2 = CoefficientMatrix([[2, 9, Fraction(7,10)], [Fraction(5,10), 1, 1]])
-matrix2.rref()
-
-print('******* Matrix 1 *******')
-matrix1.print_matrix()
-
-print('******* Matrix 2 *******')
-matrix2.print_matrix()
+"""
+Output:
+1        0        83/25
+0        1        -33/50
+"""
 ```
 
-### Output
-\*\*\*\*\*\*\* Matrix 1 \*\*\*\*\*\*\*
+### Using Fraction objects
+```python
+from vectormatrixlib import matrix
+from fractions import Fraction
 
-1        0        83/25
+my_matrix = matrix.CoefficientMatrix([[2, 9, Fraction(7,10)], [Fraction(5,10), 1, 1]])
+my_matrix.rref()
+my_matrix.print_matrix()
 
-0        1        -33/50
-
-
-\*\*\*\*\*\*\* Matrix 2 \*\*\*\*\*\*\*
-
-1        0        83/25
-
-0        1        -33/50
+"""
+Output:
+1        0        83/25
+0        1        -33/50
+"""
+```
 
