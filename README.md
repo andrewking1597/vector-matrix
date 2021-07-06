@@ -15,7 +15,7 @@ pip install vectormatrixlib==0.0.5
 ```python
 from vectormatrixlib.matrix import *
 
-my_matrix = CoefficientMatrix([[0, 5, 4, 3], [1, 6, 6, 4], [0, 0, 1, 2], [4, 0, 0, 0]]
+my_matrix = CoefficientMatrix([[0, 5, 4, 3], [1, 6, 6, 4], [0, 0, 1, 2], [4, 0, 0, 0]])
 my_matrix.rref()
 my_matrix.print_matrix()
 ```
