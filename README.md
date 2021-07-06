@@ -62,3 +62,6 @@ Output:
 """
 ```
 
+# License
+This project is licensed under the MIT license. Refer to LICENSE.txt for more details.
+
