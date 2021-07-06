@@ -11,7 +11,7 @@ This package is a linear algebra tool for manipulating matrices.  However, in mo
 pip install vectormatrixlib==0.0.5
 ```
 
-# Example
+# Simple Example
 ```python
 from vectormatrixlib.matrix import *
 
