@@ -8,7 +8,7 @@ This package is a linear algebra tool for manipulating matrices.  However, in mo
 
 # Installation
 ```
-pip install vectormatrixlib==0.0.5
+pip install vectormatrixlib==1.0.0
 ```
 
 # Simple Example
