@@ -174,6 +174,25 @@ class CoefficientMatrix:
 
         return
 
+    def partition_quickSort(self, s, e):
+        qpivot = self.ROWS[e].get_pivot_pos()
+        i = s - 1
+
+        for j in range(s, e):
+            if self.ROWS[j].get_pivot_pos() <= qpivot:
+                i = i + 1
+                self.ROWS[i], self.ROWS[j] = self.ROWS[j], self.ROWS[i]
+
+        self.ROWS[i+1], self.ROWS[e] = self.ROWS[e], self.ROWS[i+1]
+        return i + 1
+
+    def quickSort(self, l, r):
+        if l < r:
+            p = self.partition_quickSort(l, r)	
+            self.quickSort(l, p-1)
+            self.quickSort(p+1, r)
+        return
+ 
     def _sort_rows(self):
         """
         sort rows by pivot_pos
@@ -184,18 +203,9 @@ class CoefficientMatrix:
         for row in self.ROWS:
             row.update_pivot_pos()
 
-        # insertion sort
-        #todo use more efficient sorting algorithm (counting sort?)
-        for i in range(1, self.NUM_ROWS):
-            current_row = self.ROWS[i]
-            current_row_pivot_pos = current_row.get_pivot_pos()
-            j = i - 1
-            while j >= 0 and self.ROWS[j].get_pivot_pos() > current_row_pivot_pos:
-                self.ROWS[j+1] = self.ROWS[j]
-                j -= 1
-            self.ROWS[j+1] = current_row
-
+        self.quickSort(0, len(self.ROWS)-1)
         return
+
 
     def print_matrix(self):
         """ neatly format and print matrix so columns are even """
